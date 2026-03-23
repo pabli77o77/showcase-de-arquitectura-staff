@@ -1,0 +1,70 @@
+<div class="profile-container glass-morphism">
+  <!-- 🏆 Header Section (Signals consumption) -->
+  <header class="profile-header">
+    <h1>{{ profile().personal_info.name }}</h1>
+    <p class="subtitle">{{ profile().personal_info.title }}</p>
+    
+    <!-- 📄 CV Download (Native resilient tag) -->
+    <!-- Usamos rutas absolutas (/assets/docs/) para evitar que el enrutamiento 
+         de Angular intercepte la descarga del archivo en AWS Amplify. -->
+    <a href="/assets/docs/cv_staff_blueprint.pdf" 
+       download="john_doe_cv.pdf" 
+       class="btn-primary">
+       Descargar CV (Staff Version)
+    </a>
+  </header>
+
+  <!-- 🧠 Professional Summary -->
+  <section class="summary-section">
+    <p>{{ profile().summary }}</p>
+  </section>
+
+  <!-- 🏗 Experience Timeline (Control Flow @for) -->
+  <section class="experience-section">
+    <h2>Experiencia Profesional</h2>
+    @for (exp of profile().experience; track exp.company + exp.period.start) {
+      <div class="experience-item">
+        <h3>{{ exp.role }} @ {{ exp.company }}</h3>
+        <span class="duration">{{ exp.durationLabel }}</span>
+        @if (exp.isCurrent) { <span class="badge">Actual</span> }
+        <ul>
+          @for (metric of exp.metrics; track metric) {
+            <li>{{ metric }}</li>
+          }
+        </ul>
+      </div>
+    }
+  </section>
+
+  <!-- 🛠 Skills Grid -->
+  <section class="skills-section">
+    <h2>Tech Stack & Domain</h2>
+    <div class="skills-grid">
+      @for (skill of profile().skills.frontend; track skill) {
+        <span class="skill-tag">{{ skill }}</span>
+      }
+    </div>
+  </section>
+
+  <!-- 📬 Contact Form (Async Orchestration) -->
+  <section class="contact-section">
+    <h2>Conectar</h2>
+    <form (submit)="sendMessage($event)" [class.glow-success]="isSent()">
+      <input type="text" name="name" placeholder="Tu Nombre" required>
+      <input type="email" name="email" placeholder="Tu Email" required>
+      <textarea name="message" placeholder="Mensaje" required></textarea>
+      
+      <button type="submit" [disabled]="isSending()">
+        @if (isSending()) { Procesando... } @else { Enviar Mensaje }
+      </button>
+
+      <!-- Feedback Reactivo -->
+      @if (isSent()) {
+        <div class="success-message">🏆 ¡Mensaje orquestado con éxito!</div>
+      }
+      @if (errorMessage()) {
+        <div class="error-message">❌ {{ errorMessage() }}</div>
+      }
+    </form>
+  </section>
+</div>
