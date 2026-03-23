@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Showcase de Arquitectura Staff | Pablo Matías Lescano</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- 
+    🛡️ CONTENT SECURITY POLICY (CSP) - REQUERIMIENTO GOLD STANDARD
+    Protección contra ataques XSS e inyección de código.
+    - default-src 'self': Solo permite recursos de nuestro propio dominio.
+    - script-src: Permite scripts locales y de Google Analytics (telemetría).
+    - style-src: Permite estilos locales e inline para Angular y Google Fonts.
+    - img-src: Permite imágenes locales y externas (ej: LinkedIn, GitHub).
+    - connect-src: Permite conexiones a nuestra Lambda y a Google Analytics.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://www.googletagmanager.com 'unsafe-inline';
+    style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+    font-src 'self' https://fonts.gstatic.com;
+    img-src 'self' data: https://www.google-analytics.com https://avatars.githubusercontent.com;
+    connect-src 'self' https://*.lambda-url.*.on.aws https://www.google-analytics.com;
+  ">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
